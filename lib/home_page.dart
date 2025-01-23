@@ -40,14 +40,6 @@ class HomePage extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Pengaturan'),
-                onTap: () {
-                  Navigator.pop(context); // Menutup drawer setelah memilih item
-                  print('Pengaturan dipilih');
-                },
-              ),
-              ListTile(
                 leading: Icon(Icons.exit_to_app),
                 title: Text('Keluar'),
                 onTap: () {
@@ -80,7 +72,7 @@ class HomePage extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            Pelanggan(),
+            PelangganTab(),
             Center(child: Text('Sippu')),
             Center(child: Text('sayy')),
             Center(child: Text('sooyy')),

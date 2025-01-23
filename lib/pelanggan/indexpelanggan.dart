@@ -107,12 +107,12 @@ class _PelangganTabState extends State<PelangganTab> {
                                 IconButton(
                                   icon: const Icon(Icons.edit, color: Colors.blueAccent),
                                   onPressed: () {
-                                    final Pelangganid = langgan['Pelangganid'] ?? 0; // Pastikan ini sesuai dengan kolom di database
-                                    if (Pelangganid != 0) {
+                                    final PelangganID = langgan['PelangganID'] ?? 0; // Pastikan ini sesuai dengan kolom di database
+                                    if (PelangganID != 0) {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => EditPelanggan(PelangganID: Pelangganid),
+                                          builder: (context) => EditPelanggan(PelangganID: PelangganID),
                                         ),
                                       );
                                     } else {
@@ -136,7 +136,7 @@ class _PelangganTabState extends State<PelangganTab> {
                                             ),
                                             TextButton(
                                               onPressed: () {
-                                                deletePelanggan(langgan['Pelangganid']);
+                                                deletePelanggan(langgan['PelangganID']);
                                                 Navigator.pop(context);
                                               },
                                               child: const Text('Hapus'),
