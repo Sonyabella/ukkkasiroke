@@ -106,15 +106,18 @@ class _PelangganTabState extends State<PelangganTab> {
                               children: [
                                 IconButton(
                                   icon: const Icon(Icons.edit, color: Colors.blueAccent),
-                                  onPressed: () {
+                                  onPressed: () async{
                                     final PelangganID = langgan['PelangganID'] ?? 0; // Pastikan ini sesuai dengan kolom di database
                                     if (PelangganID != 0) {
-                                      Navigator.push(
+                                      var edit= await Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => EditPelanggan(PelangganID: PelangganID),
                                         ),
                                       );
+                                      if (edit==true) {
+                                        fetchPelanggan();
+                                      }
                                     } else {
                                       print('ID pelanggan tidak valid');
                                     }

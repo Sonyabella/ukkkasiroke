@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kasir_coba/main.dart';
 import 'package:kasir_coba/pelanggan/indexpelanggan.dart';
+import 'package:kasir_coba/penjualan/indexpenjualan.dart';
+import 'package:kasir_coba/produk/indexproduk.dart';
 
 class HomePage extends StatelessWidget {
   // Membuat GlobalKey untuk Scaffold
@@ -43,8 +46,7 @@ class HomePage extends StatelessWidget {
                 leading: Icon(Icons.exit_to_app),
                 title: Text('Keluar'),
                 onTap: () {
-                  Navigator.pop(context); // Menutup drawer
-                  print('Keluar dipilih');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage())); // Menutup drawer
                 },
               ),
             ],
@@ -55,8 +57,8 @@ class HomePage extends StatelessWidget {
             tabs: [
               Tab(icon: Icon(Icons.account_box_rounded), text: 'Pelanggan'),
               Tab(icon: Icon(Icons.inventory), text: 'Detail Penjualan'),
-              Tab(icon: Icon(Icons.money), text: 'Penjualan'),
               Tab(icon: Icon(Icons.shopping_bag), text: 'Produk'),
+               Tab(icon: Icon(Icons.money), text: 'Penjualan'),
             ],
           ),
           // Gantilah leading untuk membuka drawer
@@ -73,8 +75,8 @@ class HomePage extends StatelessWidget {
         body: TabBarView(
           children: [
             PelangganTab(),
-            Center(child: Text('Sippu')),
-            Center(child: Text('sayy')),
+            PenjualanTab(),
+            ProdukTab(),
             Center(child: Text('sooyy')),
 
           ],

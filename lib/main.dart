@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kasir_coba/pelanggan/indexpelanggan.dart';
 import 'home_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+       home: LoginPage(),
+      // home: PelangganTab(),
     );
   }
 }

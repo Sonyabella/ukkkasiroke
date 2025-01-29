@@ -53,11 +53,7 @@ Future<void> updatePelanggan() async {
     }).eq('PelangganID', widget.PelangganID);
 
     // Navigasi ke PelangganTab setelah update, dengan menghapus semua halaman sebelumnya dari stack
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => uii()),
-      (route) => false, // Hapus semua halaman sebelumnya
-    );
+    Navigator.pop(context,true);
   }
 }
 
@@ -119,7 +115,11 @@ Future<void> updatePelanggan() async {
               ),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: updatePelanggan,
+                onPressed: () {
+                  // Navigator.pop(context);
+                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PelangganTab()));
+                  updatePelanggan();
+                },
                 child: const Text('Update'),
               ),
             ],

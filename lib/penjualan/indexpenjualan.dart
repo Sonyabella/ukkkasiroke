@@ -24,7 +24,7 @@ class _PenjualanTabState extends State<PenjualanTab> {
       isLoading = true;
     });
     try {
-      final response = await Supabase.instance.client.from('oenjualan').select();
+      final response = await Supabase.instance.client.from('penjualan').select();
       setState(() {
         penjualan = List<Map<String, dynamic>>.from(response);
         isLoading = false;
