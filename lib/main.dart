@@ -5,8 +5,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
   await Supabase.initialize(
-    url: 'https://scprqpzrjszikhgrnrpp.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjcHJxcHpyanN6aWtoZ3JucnBwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY5MDUwMzIsImV4cCI6MjA1MjQ4MTAzMn0.jY-LzceQr7h76tH636sqrg3WymxEWQWUkk93wY2PZWw');
+      url: 'https://scprqpzrjszikhgrnrpp.supabase.co',
+      anonKey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjcHJxcHpyanN6aWtoZ3JucnBwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY5MDUwMzIsImV4cCI6MjA1MjQ4MTAzMn0.jY-LzceQr7h76tH636sqrg3WymxEWQWUkk93wY2PZWw');
   runApp(MyApp());
 }
 
@@ -17,14 +18,61 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-       home: LoginPage(),
+      home: LoginPage(),
       // home: PelangganTab(),
     );
   }
 }
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final SupabaseClient supabase = Supabase.instance.client;
+  bool _isPasswordVisible = false;
+
+  //fungsi login dengan memverifikasi username dan password di supabase
+  Future<void> _login() async {
+    final username = _usernameController.text;
+    final password = _passwordController.text;
+
+    try {
+      final response = await supabase
+          .from('user')
+          .select('username, password')
+          .eq('username', username)
+          .maybeSingle();
+
+      if (response == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Username tidak ditemukan!')),
+        );
+        return;
+      }
+
+      if (response['password'] == password) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login berhasil!')),
+        );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Password salah!')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Terjadi kesalahan: ${e.toString()}')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +110,7 @@ class LoginPage extends StatelessWidget {
               width: 350,
               margin: const EdgeInsets.only(top: 20),
               child: TextField(
+                controller: _usernameController,
                 decoration: InputDecoration(
                   labelText: "Username",
                   icon: Icon(Icons.person, color: Colors.blue),
@@ -77,6 +126,7 @@ class LoginPage extends StatelessWidget {
               width: 350,
               margin: const EdgeInsets.only(top: 20),
               child: TextField(
+                controller: _passwordController,
                 decoration: InputDecoration(
                   labelText: "Password",
                   icon: Icon(Icons.vpn_key_sharp, color: Colors.blue),
@@ -92,13 +142,7 @@ class LoginPage extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 20),
               child: ElevatedButton(
-                onPressed: () {
-                  // Pindah ke halaman beranda setelah login berhasil
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) =>  HomePage()),
-                  );
-                },
+                onPressed: _login, // Panggil metode _login untuk validasi dan login
                 child: const Text("Login"),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.amber,

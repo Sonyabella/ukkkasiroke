@@ -56,9 +56,9 @@ class HomePage extends StatelessWidget {
           bottom: const TabBar(
             tabs: [
               Tab(icon: Icon(Icons.account_box_rounded), text: 'Pelanggan'),
-              Tab(icon: Icon(Icons.inventory), text: 'Detail Penjualan'),
+              Tab(icon: Icon(Icons.money), text: 'Penjualan'),
               Tab(icon: Icon(Icons.shopping_bag), text: 'Produk'),
-               Tab(icon: Icon(Icons.money), text: 'Penjualan'),
+              Tab(icon: Icon(Icons.inventory), text: 'Detail Penjualan'),
             ],
           ),
           // Gantilah leading untuk membuka drawer
